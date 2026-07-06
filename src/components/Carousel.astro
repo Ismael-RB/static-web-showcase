@@ -1,0 +1,83 @@
+---
+// Reusable part: shows one item's images with prev/next controls. Any
+// page/card that needs a multi-image gallery imports this instead of
+// re-implementing the slide logic.
+//
+// Unlike Hero/Sidenav — pure HTML/CSS, fully decided at build time —
+// this component needs JavaScript in the browser: "which image is
+// showing" is state that only exists after a click, so it can't be
+// rendered ahead of time. Astro's client:* directives don't apply here
+// either — those only hydrate framework components (React/Vue/...);
+// a plain .astro component adds browser behavior via a scoped <script>
+// instead, which is what's used below.
+interface Props {
+	images: string[];
+	name: string;
+}
+
+const { images, name } = Astro.props;
+---
+
+<div class="relative" data-carousel>
+	{
+		images.map((src, index) => (
+			<img
+				src={src}
+				alt={`${name} — view ${index + 1}`}
+				class="h-48 w-full object-cover"
+				data-slide
+				hidden={index !== 0}
+			/>
+		))
+	}
+
+	{
+		images.length > 1 && (
+			<>
+				<button
+					type="button"
+					data-prev
+					aria-label={`Previous image of ${name}`}
+					class="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-background/80 px-2 py-1 text-sm leading-none text-foreground shadow hover:bg-background"
+				>
+					‹
+				</button>
+				<button
+					type="button"
+					data-next
+					aria-label={`Next image of ${name}`}
+					class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-background/80 px-2 py-1 text-sm leading-none text-foreground shadow hover:bg-background"
+				>
+					›
+				</button>
+			</>
+		)
+	}
+</div>
+
+<script>
+	// This markup can repeat many times on one page (one Carousel per
+	// catalog card), and Astro bundles/dedupes this <script> once for
+	// the whole page rather than once per component instance — so it
+	// must find every instance itself instead of assuming there's only
+	// one `[data-carousel]` on the page.
+	document.querySelectorAll<HTMLElement>("[data-carousel]").forEach((root) => {
+		const slides = root.querySelectorAll<HTMLImageElement>("[data-slide]");
+		let current = 0;
+
+		const show = (index: number) => {
+			slides.forEach((slide, i) => {
+				slide.hidden = i !== index;
+			});
+			current = index;
+		};
+
+		root.querySelector("[data-prev]")?.addEventListener("click", () => {
+			show((current - 1 + slides.length) % slides.length);
+		});
+
+		root.querySelector("[data-next]")?.addEventListener("click", () => {
+			show((current + 1) % slides.length);
+		});
+	});
+</script>

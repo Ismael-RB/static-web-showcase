@@ -2,21 +2,43 @@
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import CatalogCard from '../components/CatalogCard.astro';
+import Sidenav from '../components/Sidenav.astro';
+import { slugify } from '../lib/slugify';
 
 // getCollection() reads every entry under src/content/catalog/,
 // already validated against the schema in src/content.config.ts.
 const items = await getCollection('catalog');
+
+// Grouped by category so each group can carry the id that Sidenav's
+// links point to (#slug-of-category) — plain anchor navigation, no
+// filtering logic needed.
+const categories = [...new Set(items.map((item) => item.data.category))];
 ---
 
 <Layout title="Catalog · Static Web Showcase">
-	<section class="mx-auto max-w-5xl px-6 py-16">
+	<section class="mx-auto max-w-6xl px-6 py-16">
 		<h1 class="mb-2 text-3xl font-bold">Catalog</h1>
 		<p class="mb-10 text-foreground/70">
 			Example entries from the "catalog" content collection — placeholder data, real schema.
 		</p>
 
-		<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-			{items.map((item) => <CatalogCard {...item.data} />)}
+		<div class="flex gap-10">
+			<Sidenav />
+
+			<div class="flex flex-1 flex-col gap-12">
+				{
+					categories.map((category) => (
+						<div id={slugify(category)}>
+							<h2 class="mb-4 text-xl font-semibold">{category}</h2>
+							<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+								{items
+									.filter((item) => item.data.category === category)
+									.map((item) => <CatalogCard {...item.data} />)}
+							</div>
+						</div>
+					))
+				}
+			</div>
 		</div>
 	</section>
 </Layout>

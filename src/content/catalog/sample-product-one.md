@@ -6,7 +6,10 @@ specs:
   - "Spec example: Material — Aluminum"
   - "Spec example: Weight — 1.2 kg"
   - "Spec example: Warranty — 2 years"
-image: "/images/catalog/sample-product-one.svg"
+images:
+  - "/images/catalog/sample-product-one.svg"
+  - "/images/catalog/sample-product-one-2.svg"
+  - "/images/catalog/sample-product-one-3.svg"
 ---
 
 This is placeholder body content for "Sample Product One". In a real

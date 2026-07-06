@@ -6,7 +6,10 @@ specs:
   - "Spec example: Duration — 60 minutes"
   - "Spec example: Format — On-site or remote"
   - "Spec example: Booking — By appointment"
-image: "/images/catalog/sample-service-example.svg"
+images:
+  - "/images/catalog/sample-service-example.svg"
+  - "/images/catalog/sample-service-example-2.svg"
+  - "/images/catalog/sample-service-example-3.svg"
 ---
 
 Placeholder body content for "Sample Service Example".

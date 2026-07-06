@@ -2,19 +2,21 @@
 // Reusable part: renders one catalog entry. The list page below just
 // loops over collection entries and passes each one's `data` here —
 // it never repeats this markup per item.
+import Carousel from "./Carousel.astro";
+
 interface Props {
 	name: string;
 	category: string;
 	shortDescription: string;
 	specs: string[];
-	image: string;
+	images: string[];
 }
 
-const { name, category, shortDescription, specs, image } = Astro.props;
+const { name, category, shortDescription, specs, images } = Astro.props;
 ---
 
 <article class="flex flex-col overflow-hidden rounded-lg border border-border">
-	<img src={image} alt={name} class="h-48 w-full object-cover" />
+	<Carousel images={images} name={name} />
 	<div class="flex flex-col gap-2 p-5">
 		<span class="text-xs font-medium uppercase tracking-wide text-accent">
 			{category}

@@ -1,0 +1,26 @@
+---
+// Reusable part: reads categories straight from the "catalog" collection,
+// so the list stays correct as entries are added or removed — nothing
+// here is hand-maintained. Pure HTML/CSS: every link's target is known
+// at build time, so unlike Carousel this needs no client-side script.
+import { getCollection } from "astro:content";
+import { slugify } from "../lib/slugify";
+
+const items = await getCollection("catalog");
+const categories = [...new Set(items.map((item) => item.data.category))];
+---
+
+<aside class="sticky top-6 hidden h-fit w-48 shrink-0 flex-col gap-3 lg:flex">
+	<span class="text-xs font-semibold uppercase tracking-wide text-foreground/50">
+		Categories
+	</span>
+	<nav class="flex flex-col gap-2 text-sm">
+		{
+			categories.map((category) => (
+				<a href={`#${slugify(category)}`} class="text-foreground/70 hover:text-accent">
+					{category}
+				</a>
+			))
+		}
+	</nav>
+</aside>

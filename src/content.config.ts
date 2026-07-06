@@ -11,7 +11,7 @@ const catalog = defineCollection({
 		category: z.string(),
 		shortDescription: z.string(),
 		specs: z.array(z.string()),
-		image: z.string(),
+		images: z.array(z.string()).min(1),
 	}),
 });
 
