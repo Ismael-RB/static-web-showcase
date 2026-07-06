@@ -1,36 +1,19 @@
 ---
-import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Página 1 · Static Web Showcase</title>
-	</head>
-	<body class="bg-background text-foreground font-sans">
-		<nav class="flex justify-center gap-6 border-b border-border px-6 py-4 text-sm">
-			<a href="/">Home</a>
-			<a href="/pagina-1">Página 1</a>
-			<a href="/pagina-2">Página 2</a>
-			<a href="/pagina-3">Página 3</a>
-		</nav>
-
-		<!--
-			--- Per-page part ---------------------------------------------
-			Same <Hero /> component, different props: an "accent" variant
-			hero, product-catalog style copy.
-		-->
-		<Hero
-			title="A catalog that sells itself"
-			subtitle="Showcase your products with a clean, fast, static page — no backend required to get started."
-			ctaText="Request a demo"
-			ctaHref="/pagina-2"
-			variant="accent"
-		/>
-	</body>
-</html>
+<Layout title="Página 1 · Static Web Showcase">
+	<!--
+		--- Per-page part ---------------------------------------------
+		Same <Hero /> component, different props: an "accent" variant
+		hero, product-catalog style copy.
+	-->
+	<Hero
+		title="A catalog that sells itself"
+		subtitle="Showcase your products with a clean, fast, static page — no backend required to get started."
+		ctaText="Request a demo"
+		ctaHref="/pagina-2"
+		variant="accent"
+	/>
+</Layout>

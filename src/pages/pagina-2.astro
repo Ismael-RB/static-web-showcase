@@ -1,35 +1,18 @@
 ---
-import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Página 2 · Static Web Showcase</title>
-	</head>
-	<body class="bg-background text-foreground font-sans">
-		<nav class="flex justify-center gap-6 border-b border-border px-6 py-4 text-sm">
-			<a href="/">Home</a>
-			<a href="/pagina-1">Página 1</a>
-			<a href="/pagina-2">Página 2</a>
-			<a href="/pagina-3">Página 3</a>
-		</nav>
-
-		<!--
-			--- Per-page part ---------------------------------------------
-			Same <Hero /> component again, now with the "neutral" variant
-			(outlined button instead of solid accent) and no subtitle.
-		-->
-		<Hero
-			title="Book an appointment in minutes"
-			ctaText="View available times"
-			ctaHref="/pagina-3"
-			variant="neutral"
-		/>
-	</body>
-</html>
+<Layout title="Página 2 · Static Web Showcase">
+	<!--
+		--- Per-page part ---------------------------------------------
+		Same <Hero /> component again, now with the "neutral" variant
+		(outlined button instead of solid accent) and no subtitle.
+	-->
+	<Hero
+		title="Book an appointment in minutes"
+		ctaText="View available times"
+		ctaHref="/pagina-3"
+		variant="neutral"
+	/>
+</Layout>

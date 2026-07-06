@@ -1,0 +1,15 @@
+---
+// Reusable part: the site-wide navigation links live only here.
+// Pages no longer need to repeat this markup themselves.
+const links = [
+	{ href: "/", label: "Home" },
+	{ href: "/pagina-1", label: "Página 1" },
+	{ href: "/pagina-2", label: "Página 2" },
+	{ href: "/pagina-3", label: "Página 3" },
+	{ href: "/catalog", label: "Catalog" },
+];
+---
+
+<nav class="flex justify-center gap-6 border-b border-border px-6 py-4 text-sm">
+	{links.map((link) => <a href={link.href}>{link.label}</a>)}
+</nav>

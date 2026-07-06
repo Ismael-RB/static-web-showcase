@@ -1,36 +1,19 @@
 ---
-import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Static Web Showcase</title>
-	</head>
-	<body class="bg-background text-foreground font-sans">
-		<nav class="flex justify-center gap-6 border-b border-border px-6 py-4 text-sm">
-			<a href="/">Home</a>
-			<a href="/pagina-1">Página 1</a>
-			<a href="/pagina-2">Página 2</a>
-			<a href="/pagina-3">Página 3</a>
-		</nav>
-
-		<!--
-			--- Per-page part ---------------------------------------------
-			Same <Hero /> component as every other page below. Only the
-			props change: title, subtitle, CTA text/link and variant.
-		-->
-		<Hero
-			title="Static Web Showcase"
-			subtitle="A base template for static websites, built stage by stage: Astro, Tailwind, a shared design system, and reusable components."
-			ctaText="See Página 1"
-			ctaHref="/pagina-1"
-			variant="accent"
-		/>
-	</body>
-</html>
+<Layout title="Static Web Showcase">
+	<!--
+		--- Per-page part ---------------------------------------------
+		Same <Hero /> component as every other page below. Only the
+		props change: title, subtitle, CTA text/link and variant.
+	-->
+	<Hero
+		title="Static Web Showcase"
+		subtitle="A base template for static websites, built stage by stage: Astro, Tailwind, a shared design system, and reusable components."
+		ctaText="See Página 1"
+		ctaHref="/pagina-1"
+		variant="accent"
+	/>
+</Layout>

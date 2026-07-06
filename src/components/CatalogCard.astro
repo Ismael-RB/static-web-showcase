@@ -1,0 +1,28 @@
+---
+// Reusable part: renders one catalog entry. The list page below just
+// loops over collection entries and passes each one's `data` here —
+// it never repeats this markup per item.
+interface Props {
+	name: string;
+	category: string;
+	shortDescription: string;
+	specs: string[];
+	image: string;
+}
+
+const { name, category, shortDescription, specs, image } = Astro.props;
+---
+
+<article class="flex flex-col overflow-hidden rounded-lg border border-border">
+	<img src={image} alt={name} class="h-48 w-full object-cover" />
+	<div class="flex flex-col gap-2 p-5">
+		<span class="text-xs font-medium uppercase tracking-wide text-accent">
+			{category}
+		</span>
+		<h2 class="text-lg font-semibold">{name}</h2>
+		<p class="text-sm text-foreground/70">{shortDescription}</p>
+		<ul class="mt-2 flex flex-col gap-1 text-sm text-foreground/70">
+			{specs.map((spec) => <li>• {spec}</li>)}
+		</ul>
+	</div>
+</article>
