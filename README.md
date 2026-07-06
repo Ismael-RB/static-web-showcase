@@ -4,9 +4,7 @@
 npm create astro@latest -- --template minimal
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
+## Project Structure
 
 Inside of your Astro project, you'll see the following folders and files:
 
@@ -25,7 +23,7 @@ There's nothing special about `src/components/`, but that's where we like to put
 
 Any static assets, like images, can be placed in the `public/` directory.
 
-## 🧞 Commands
+## Commands
 
 All commands are run from the root of the project, from a terminal:
 
@@ -38,11 +36,11 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
+## Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
 
-## 🗺️ Roadmap: future hybrid mode
+## Roadmap: future hybrid mode
 
 This project starts as a **100% static B2B catalog template** — no backend, no database. It's being built incrementally, stage by stage.
 
@@ -50,6 +48,6 @@ However, the folder structure and content modeling decisions made along the way 
 
 Nothing related to that hybrid mode is implemented yet. This section only documents the intention, so that if/when that transition happens, it's as low-friction as possible.
 
-## 🤖 AI usage
+## AI usage
 
 Built with assistance from Claude (Anthropic) as an AI pair-programming tool; all code reviewed and directed by the author.
