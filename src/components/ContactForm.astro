@@ -1,0 +1,95 @@
+---
+// Reusable part: contact/quote form. Posts to the Cloudflare Pages
+// Function at /api/contact via fetch, no page reload — a scoped <script>
+// like Carousel, since this behavior can't be known at build time either.
+---
+
+<form id="contact-form" class="flex flex-col gap-4" novalidate>
+	<div class="flex flex-col gap-1">
+		<label for="contact-name" class="text-sm font-medium">Name</label>
+		<input
+			id="contact-name"
+			name="name"
+			type="text"
+			required
+			class="rounded-md border border-border bg-background px-3 py-2 text-sm"
+		/>
+	</div>
+
+	<div class="flex flex-col gap-1">
+		<label for="contact-email" class="text-sm font-medium">Email</label>
+		<input
+			id="contact-email"
+			name="email"
+			type="email"
+			required
+			class="rounded-md border border-border bg-background px-3 py-2 text-sm"
+		/>
+	</div>
+
+	<div class="flex flex-col gap-1">
+		<label for="contact-message" class="text-sm font-medium">Message</label>
+		<textarea
+			id="contact-message"
+			name="message"
+			rows="5"
+			required
+			class="rounded-md border border-border bg-background px-3 py-2 text-sm"
+		></textarea>
+	</div>
+
+	<button
+		type="submit"
+		class="rounded-md bg-accent px-6 py-2 font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+	>
+		Send
+	</button>
+
+	<p data-contact-status role="status" hidden></p>
+</form>
+
+<script>
+	const form = document.querySelector<HTMLFormElement>("#contact-form");
+	const status = form?.querySelector<HTMLParagraphElement>("[data-contact-status]");
+	const submitButton = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+	form?.addEventListener("submit", async (event) => {
+		event.preventDefault();
+		if (!status || !submitButton) return;
+
+		const formData = new FormData(form);
+		const payload = {
+			name: formData.get("name"),
+			email: formData.get("email"),
+			message: formData.get("message"),
+		};
+
+		submitButton.disabled = true;
+		status.hidden = false;
+		status.textContent = "Sending…";
+		status.className = "text-sm text-foreground/70";
+
+		try {
+			const response = await fetch("/api/contact", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(payload),
+			});
+			const result = await response.json();
+
+			if (response.ok && result.success) {
+				status.textContent = "Message sent — thanks for reaching out!";
+				status.className = "text-sm font-medium text-accent";
+				form.reset();
+			} else {
+				status.textContent = `Error: ${result.error ?? "Something went wrong. Please try again."}`;
+				status.className = "text-sm font-medium text-foreground";
+			}
+		} catch {
+			status.textContent = "Error: network issue. Please try again.";
+			status.className = "text-sm font-medium text-foreground";
+		} finally {
+			submitButton.disabled = false;
+		}
+	});
+</script>
