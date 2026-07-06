@@ -49,3 +49,7 @@ This project starts as a **100% static B2B catalog template** — no backend, no
 However, the folder structure and content modeling decisions made along the way are chosen with a possible future migration in mind: from a fully static site to a **hybrid mode** using Astro SSR with a serverless database (e.g. Cloudflare D1, or another edge-friendly option), for cases that require real dynamic functionality — such as a shopping cart, real-time inventory, or an appointment booking system.
 
 Nothing related to that hybrid mode is implemented yet. This section only documents the intention, so that if/when that transition happens, it's as low-friction as possible.
+
+## 🤖 AI usage
+
+Built with assistance from Claude (Anthropic) as an AI pair-programming tool; all code reviewed and directed by the author.
