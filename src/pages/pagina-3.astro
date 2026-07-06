@@ -10,7 +10,7 @@ import Hero from '../components/Hero.astro';
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Static Web Showcase</title>
+		<title>Página 3 · Static Web Showcase</title>
 	</head>
 	<body class="bg-background text-foreground font-sans">
 		<nav class="flex justify-center gap-6 border-b border-border px-6 py-4 text-sm">
@@ -22,15 +22,13 @@ import Hero from '../components/Hero.astro';
 
 		<!--
 			--- Per-page part ---------------------------------------------
-			Same <Hero /> component as every other page below. Only the
-			props change: title, subtitle, CTA text/link and variant.
+			Same <Hero /> component a third time: no ctaText/ctaHref at all,
+			so the component renders without a button — proving the props
+			are genuinely optional, not just re-styled per page.
 		-->
 		<Hero
-			title="Static Web Showcase"
-			subtitle="A base template for static websites, built stage by stage: Astro, Tailwind, a shared design system, and reusable components."
-			ctaText="See Página 1"
-			ctaHref="/pagina-1"
-			variant="accent"
+			title="Real-time inventory, without the complexity"
+			subtitle="This section has no call-to-action button — props like ctaText are optional, so pages can omit what they don't need."
 		/>
 	</body>
 </html>

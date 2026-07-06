@@ -1,0 +1,50 @@
+---
+// --- Reusable part -------------------------------------------------
+// This is the one place the Hero's markup, layout and CSS classes are
+// defined. Every page that needs a hero section imports this file
+// instead of copy-pasting the same section + styles into each page.
+//
+// `variant` picks a button style, not a different hue: the design
+// system intentionally has a single --accent color, so "variants"
+// here mean "solid accent button" vs "neutral/outlined button", not
+// alternate color schemes.
+interface Props {
+	title: string;
+	subtitle?: string;
+	ctaText?: string;
+	ctaHref?: string;
+	variant?: "accent" | "neutral";
+}
+
+const {
+	title,
+	subtitle,
+	ctaText,
+	ctaHref = "#",
+	variant = "accent",
+} = Astro.props;
+
+const ctaStyles =
+	variant === "accent"
+		? "bg-accent text-white hover:opacity-90"
+		: "border border-border text-foreground hover:bg-foreground/5";
+---
+
+<section
+	class="flex min-h-[60vh] flex-col items-center justify-center gap-6 bg-background px-6 py-24 text-center text-foreground"
+>
+	<h1 class="max-w-3xl text-4xl font-bold sm:text-5xl">{title}</h1>
+
+	{subtitle && <p class="max-w-2xl text-lg text-foreground/70">{subtitle}</p>}
+
+	{
+		ctaText && (
+			<a
+				href={ctaHref}
+				class={`rounded-md px-6 py-3 font-medium transition-opacity ${ctaStyles}`}
+			>
+				{ctaText}
+			</a>
+		)
+	}
+</section>

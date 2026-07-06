@@ -10,7 +10,7 @@ import Hero from '../components/Hero.astro';
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Static Web Showcase</title>
+		<title>Página 1 · Static Web Showcase</title>
 	</head>
 	<body class="bg-background text-foreground font-sans">
 		<nav class="flex justify-center gap-6 border-b border-border px-6 py-4 text-sm">
@@ -22,14 +22,14 @@ import Hero from '../components/Hero.astro';
 
 		<!--
 			--- Per-page part ---------------------------------------------
-			Same <Hero /> component as every other page below. Only the
-			props change: title, subtitle, CTA text/link and variant.
+			Same <Hero /> component, different props: an "accent" variant
+			hero, product-catalog style copy.
 		-->
 		<Hero
-			title="Static Web Showcase"
-			subtitle="A base template for static websites, built stage by stage: Astro, Tailwind, a shared design system, and reusable components."
-			ctaText="See Página 1"
-			ctaHref="/pagina-1"
+			title="A catalog that sells itself"
+			subtitle="Showcase your products with a clean, fast, static page — no backend required to get started."
+			ctaText="Request a demo"
+			ctaHref="/pagina-2"
 			variant="accent"
 		/>
 	</body>
