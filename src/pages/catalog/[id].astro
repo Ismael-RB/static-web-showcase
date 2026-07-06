@@ -1,0 +1,57 @@
+---
+// Detail page for one catalog entry. getStaticPaths() tells Astro which
+// pages to generate at build time — one per collection entry, keyed by
+// the entry's own id (already unique: the glob loader derives it from
+// the Markdown file name, so no extra schema field is needed for this).
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Sidenav from "../../components/Sidenav.astro";
+import Carousel from "../../components/Carousel.astro";
+
+export async function getStaticPaths() {
+	const items = await getCollection("catalog");
+	return items.map((entry) => ({
+		params: { id: entry.id },
+		props: { entry },
+	}));
+}
+
+interface Props {
+	entry: Awaited<ReturnType<typeof getCollection<"catalog">>>[number];
+}
+
+const { entry } = Astro.props;
+const { name, category, shortDescription, specs, images } = entry.data;
+const { Content } = await render(entry);
+---
+
+<Layout title={`${name} · Static Web Showcase`}>
+	<section class="mx-auto max-w-6xl px-6 py-16">
+		<div class="flex gap-10">
+			<Sidenav />
+
+			<div class="flex flex-1 flex-col gap-8">
+				<div>
+					<span class="text-xs font-medium uppercase tracking-wide text-accent">
+						{category}
+					</span>
+					<h1 class="mt-1 text-3xl font-bold">{name}</h1>
+					<p class="mt-2 text-foreground/70">{shortDescription}</p>
+				</div>
+
+				<Carousel images={images} name={name} />
+
+				<div>
+					<h2 class="mb-3 text-lg font-semibold">Specs</h2>
+					<ul class="flex flex-col gap-1 text-sm text-foreground/70">
+						{specs.map((spec) => <li>• {spec}</li>)}
+					</ul>
+				</div>
+
+				<div class="max-w-prose text-foreground/80 leading-relaxed">
+					<Content />
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>

@@ -1,10 +1,11 @@
 ---
-// Reusable part: renders one catalog entry. The list page below just
-// loops over collection entries and passes each one's `data` here —
-// it never repeats this markup per item.
-import Carousel from "./Carousel.astro";
-
+// Reusable part: renders one catalog entry as a link to its detail page.
+// The list page below just loops over collection entries and passes each
+// one's `id` + `data` here — it never repeats this markup per item. The
+// Carousel now lives only on the detail page, so this card just shows the
+// first image as a static thumbnail.
 interface Props {
+	id: string;
 	name: string;
 	category: string;
 	shortDescription: string;
@@ -12,11 +13,14 @@ interface Props {
 	images: string[];
 }
 
-const { name, category, shortDescription, specs, images } = Astro.props;
+const { id, name, category, shortDescription, specs, images } = Astro.props;
 ---
 
-<article class="flex flex-col overflow-hidden rounded-lg border border-border">
-	<Carousel images={images} name={name} />
+<a
+	href={`/catalog/${id}`}
+	class="flex flex-col overflow-hidden rounded-lg border border-border transition hover:border-accent"
+>
+	<img src={images[0]} alt={name} class="h-48 w-full object-cover" />
 	<div class="flex flex-col gap-2 p-5">
 		<span class="text-xs font-medium uppercase tracking-wide text-accent">
 			{category}
@@ -27,4 +31,4 @@ const { name, category, shortDescription, specs, images } = Astro.props;
 			{specs.map((spec) => <li>• {spec}</li>)}
 		</ul>
 	</div>
-</article>
+</a>

@@ -33,7 +33,7 @@ const categories = [...new Set(items.map((item) => item.data.category))];
 							<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 								{items
 									.filter((item) => item.data.category === category)
-									.map((item) => <CatalogCard {...item.data} />)}
+									.map((item) => <CatalogCard id={item.id} {...item.data} />)}
 							</div>
 						</div>
 					))
