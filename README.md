@@ -42,7 +42,7 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 
 ## Roadmap: future hybrid mode
 
-This project starts as a **100% static B2B catalog template** — no backend, no database. It's being built incrementally, stage by stage.
+This project starts as a **100% static website template** — no backend, no database. It's being built incrementally, stage by stage, as a general-purpose base that can be adapted to different use cases (catalogs, portfolios, landing pages, small business sites, etc.), not tied to any single one.
 
 However, the folder structure and content modeling decisions made along the way are chosen with a possible future migration in mind: from a fully static site to a **hybrid mode** using Astro SSR with a serverless database (e.g. Cloudflare D1, or another edge-friendly option), for cases that require real dynamic functionality — such as a shopping cart, real-time inventory, or an appointment booking system.
 
