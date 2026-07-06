@@ -25,7 +25,11 @@ const { name, category, shortDescription, specs, images } = entry.data;
 const { Content } = await render(entry);
 ---
 
-<Layout title={`${name} · Static Web Showcase`}>
+<Layout
+	title={`${name} · Static Web Showcase`}
+	description={shortDescription}
+	ogImage={images[0]}
+>
 	<section class="mx-auto max-w-6xl px-6 py-16">
 		<div class="flex gap-10">
 			<Sidenav />

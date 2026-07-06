@@ -1,15 +1,24 @@
 ---
 // Reusable part: html/head boilerplate + Navbar/Footer live only here now.
-// Pages provide just a title and their own content via the slot.
+// Pages provide a title and, optionally, description/OG overrides via
+// props; anything they don't pass falls back to the site-wide default
+// below instead of being left empty.
 import "../styles/global.css";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 
 interface Props {
 	title: string;
+	description?: string;
+	ogType?: "website" | "article";
+	ogImage?: string;
 }
 
-const { title } = Astro.props;
+const DEFAULT_DESCRIPTION =
+	"A general-purpose static website template built with Astro and Tailwind — product/service catalog, contact form, and a shared design system.";
+
+const { title, description = DEFAULT_DESCRIPTION, ogType = "website", ogImage } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="en">
@@ -19,7 +28,16 @@ const { title } = Astro.props;
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="canonical" href={canonicalURL} />
+
 		<title>{title}</title>
+		<meta name="description" content={description} />
+
+		<meta property="og:type" content={ogType} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalURL} />
+		{ogImage && <meta property="og:image" content={new URL(ogImage, Astro.site)} />}
 	</head>
 	<body class="bg-background text-foreground font-sans">
 		<Navbar />

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://static-web-showcase.pages.dev/sitemap-index.xml

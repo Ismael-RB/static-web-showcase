@@ -15,7 +15,10 @@ const items = await getCollection('catalog');
 const categories = [...new Set(items.map((item) => item.data.category))];
 ---
 
-<Layout title="Catalog · Static Web Showcase">
+<Layout
+	title="Catalog · Static Web Showcase"
+	description="Browse example products and services from the catalog Content Collection — placeholder data on a real, reusable schema."
+>
 	<section class="mx-auto max-w-6xl px-6 py-16">
 		<h1 class="mb-2 text-3xl font-bold">Catalog</h1>
 		<p class="mb-10 text-foreground/70">
