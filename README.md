@@ -40,6 +40,12 @@ All commands are run from the root of the project, from a terminal:
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
 
+## Why Astro?
+
+Astro was chosen over plain static site generators or a full framework (Next.js, Nuxt, etc.) because it ships **zero JavaScript by default** and renders everything to static HTML at build time — ideal for a content-first, static site where performance and simplicity matter more than client-side interactivity.
+
+At the same time, Astro isn't a dead end: it supports adding UI framework components (React, Vue, Svelte) only where actually needed (its "islands" model), and it can switch its rendering mode from static to server-rendered (SSR) via an adapter (e.g. the Cloudflare adapter), without a rewrite. That's exactly what this project's future hybrid-mode roadmap relies on — starting fully static today, with a realistic path to add SSR and a serverless database later, only if a real need for dynamic functionality shows up.
+
 ## Roadmap: future hybrid mode
 
 This project starts as a **100% static website template** — no backend, no database. It's being built incrementally, stage by stage, as a general-purpose base that can be adapted to different use cases (catalogs, portfolios, landing pages, small business sites, etc.), not tied to any single one.
