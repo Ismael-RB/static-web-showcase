@@ -1,5 +1,5 @@
 {
-	"name": "static-web-showcase",
+	"name": "showcase-demo",
 	"compatibility_date": "2026-07-06",
 	"compatibility_flags": ["nodejs_compat"],
 	"main": "src/worker.ts",

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://static-web-showcase.rb-joseismael.workers.dev/sitemap-index.xml
+Sitemap: https://showcase-demo.rb-joseismael.workers.dev/sitemap-index.xml
