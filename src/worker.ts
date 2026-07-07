@@ -1,7 +1,9 @@
-// Native Cloudflare Pages Function — lives outside src/pages on purpose,
-// so the Astro site stays 100% static (output: 'static', no adapter) while
-// this one route still runs server-side. Cloudflare Pages serves anything
-// under /functions alongside the static build automatically.
+/// <reference types="@cloudflare/workers-types" />
+// Single Worker entrypoint, required by `wrangler deploy` (unlike Pages,
+// a plain Worker doesn't compile a /functions folder). `run_worker_first`
+// in wrangler.jsonc restricts invocation to /api/* — every other request
+// is served straight from the ASSETS binding (the Astro static build)
+// without ever reaching this fetch handler.
 //
 // SMTP is sent directly (no third-party email API) via worker-mailer,
 // which implements the SMTP protocol on top of Cloudflare's raw TCP
@@ -9,9 +11,9 @@
 // it depends on Node's `net`/`tls` modules, which don't exist in the
 // Workers runtime even with the nodejs_compat flag.
 import { WorkerMailer } from "worker-mailer";
-import type { PagesFunction } from "@cloudflare/workers-types";
 
 interface Env {
+	ASSETS: Fetcher;
 	SMTP_HOST: string;
 	SMTP_PORT: string;
 	SMTP_SECURE: string;
@@ -38,10 +40,10 @@ function parsePayload(value: unknown): ContactPayload | null {
 	return { name: name.trim(), email: email.trim(), message: message.trim() };
 }
 
-export const onRequestPost: PagesFunction<Env> = async (context) => {
+async function handleContact(request: Request, env: Env): Promise<Response> {
 	let body: unknown;
 	try {
-		body = await context.request.json();
+		body = await request.json();
 	} catch {
 		return Response.json({ success: false, error: "Invalid JSON body." }, { status: 400 });
 	}
@@ -51,8 +53,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 		return Response.json({ success: false, error: "Missing or invalid fields." }, { status: 400 });
 	}
 
-	const { SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_AUTH_TYPE, SMTP_USER, SMTP_PASS, CONTACT_TO_EMAIL } =
-		context.env;
+	const { SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_AUTH_TYPE, SMTP_USER, SMTP_PASS, CONTACT_TO_EMAIL } = env;
 
 	try {
 		const mailer = await WorkerMailer.connect({
@@ -78,4 +79,19 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 			{ status: 502 },
 		);
 	}
-};
+}
+
+export default {
+	async fetch(request, env) {
+		const url = new URL(request.url);
+
+		if (url.pathname === "/api/contact") {
+			if (request.method !== "POST") {
+				return new Response("Method Not Allowed", { status: 405 });
+			}
+			return handleContact(request, env);
+		}
+
+		return new Response("Not Found", { status: 404 });
+	},
+} satisfies ExportedHandler<Env>;
