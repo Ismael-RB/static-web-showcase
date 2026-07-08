@@ -2,7 +2,15 @@
 // Reusable part: contact/quote form. Posts to the Cloudflare Pages
 // Function at /api/contact via fetch, no page reload — a scoped <script>
 // like Carousel, since this behavior can't be known at build time either.
+//
+// Gated behind Cloudflare Turnstile: the submit handler first verifies the
+// widget token against a dedicated siteverify Worker before it ever calls
+// /api/contact, so spam never reaches the SMTP send path.
+const TURNSTILE_SITEKEY = "0x4AAAAAADyHdPXG_b9yYfGx";
+const TURNSTILE_WORKER_URL = "https://turnstile-siteverify-static-web-showcase.rb-joseismael.workers.dev";
 ---
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <form id="contact-form" class="flex flex-col gap-4" novalidate>
 	<div class="flex flex-col gap-1">
@@ -38,6 +46,8 @@
 		></textarea>
 	</div>
 
+	<div class="cf-turnstile" data-sitekey={TURNSTILE_SITEKEY} data-action="turnstile-spin-v1"></div>
+
 	<button
 		type="submit"
 		class="rounded-md bg-accent px-6 py-2 font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
@@ -49,6 +59,8 @@
 </form>
 
 <script>
+	const TURNSTILE_WORKER_URL = "https://turnstile-siteverify-static-web-showcase.rb-joseismael.workers.dev";
+
 	const form = document.querySelector<HTMLFormElement>("#contact-form");
 	const status = form?.querySelector<HTMLParagraphElement>("[data-contact-status]");
 	const submitButton = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
@@ -68,6 +80,21 @@
 		status.hidden = false;
 		status.textContent = "Sending…";
 		status.className = "text-sm text-foreground/70";
+
+		const turnstileToken = formData.get("cf-turnstile-response");
+		const verify = await fetch(TURNSTILE_WORKER_URL, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ token: turnstileToken }),
+		});
+		const verifyResult = await verify.json();
+
+		if (!verifyResult.success) {
+			status.textContent = "Error: verification failed. Please try again.";
+			status.className = "text-sm font-medium text-foreground";
+			submitButton.disabled = false;
+			return;
+		}
 
 		try {
 			const response = await fetch("/api/contact", {
