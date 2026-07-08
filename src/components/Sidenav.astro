@@ -11,9 +11,7 @@ const categories = [...new Set(items.map((item) => item.data.category))];
 ---
 
 <aside class="sticky top-6 hidden h-fit w-48 shrink-0 flex-col gap-3 lg:flex">
-	<span class="text-xs font-semibold uppercase tracking-wide text-foreground/50">
-		Categories
-	</span>
+	<span class="text-foreground/50 text-xs font-semibold tracking-wide uppercase"> Categories </span>
 	<nav class="flex flex-col gap-2 text-sm">
 		{
 			categories.map((category) => (

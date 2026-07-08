@@ -25,34 +25,30 @@ const { name, category, shortDescription, specs, images } = entry.data;
 const { Content } = await render(entry);
 ---
 
-<Layout
-	title={`${name} · Static Web Showcase`}
-	description={shortDescription}
-	ogImage={images[0]}
->
+<Layout title={`${name} · Static Web Showcase`} description={shortDescription} ogImage={images[0]}>
 	<section class="mx-auto max-w-6xl px-6 py-16">
 		<div class="flex gap-10">
 			<Sidenav />
 
 			<div class="flex flex-1 flex-col gap-8">
 				<div>
-					<span class="text-xs font-medium uppercase tracking-wide text-accent">
+					<span class="text-accent text-xs font-medium tracking-wide uppercase">
 						{category}
 					</span>
 					<h1 class="mt-1 text-3xl font-bold">{name}</h1>
-					<p class="mt-2 text-foreground/70">{shortDescription}</p>
+					<p class="text-foreground/70 mt-2">{shortDescription}</p>
 				</div>
 
 				<Carousel images={images} name={name} />
 
 				<div>
 					<h2 class="mb-3 text-lg font-semibold">Specs</h2>
-					<ul class="flex flex-col gap-1 text-sm text-foreground/70">
+					<ul class="text-foreground/70 flex flex-col gap-1 text-sm">
 						{specs.map((spec) => <li>• {spec}</li>)}
 					</ul>
 				</div>
 
-				<div class="max-w-prose text-foreground/80 leading-relaxed">
+				<div class="text-foreground/80 max-w-prose leading-relaxed">
 					<Content />
 				</div>
 			</div>

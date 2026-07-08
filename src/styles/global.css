@@ -12,19 +12,19 @@
  * shared, template-level styling.
  */
 :root {
-  --background: #ffffff;
-  --foreground: #18181b;
-  --border: #e4e4e7;
-  --accent: #2563eb;
+	--background: #ffffff;
+	--foreground: #18181b;
+	--border: #e4e4e7;
+	--accent: #2563eb;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #18181b;
-    --foreground: #fafafa;
-    --border: #3f3f46;
-    /* --accent is intentionally left unchanged across modes */
-  }
+	:root {
+		--background: #18181b;
+		--foreground: #fafafa;
+		--border: #3f3f46;
+		/* --accent is intentionally left unchanged across modes */
+	}
 }
 
 /*
@@ -36,10 +36,10 @@
  * automatically.
  */
 @theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-border: var(--border);
-  --color-accent: var(--accent);
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-border: var(--border);
+	--color-accent: var(--accent);
 
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+	--font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }

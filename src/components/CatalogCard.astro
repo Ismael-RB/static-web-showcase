@@ -18,16 +18,16 @@ const { id, name, category, shortDescription, specs, images } = Astro.props;
 
 <a
 	href={`/catalog/${id}`}
-	class="flex flex-col overflow-hidden rounded-lg border border-border transition hover:border-accent"
+	class="border-border hover:border-accent flex flex-col overflow-hidden rounded-lg border transition"
 >
 	<img src={images[0]} alt={name} class="h-48 w-full object-cover" />
 	<div class="flex flex-col gap-2 p-5">
-		<span class="text-xs font-medium uppercase tracking-wide text-accent">
+		<span class="text-accent text-xs font-medium tracking-wide uppercase">
 			{category}
 		</span>
 		<h2 class="text-lg font-semibold">{name}</h2>
-		<p class="text-sm text-foreground/70">{shortDescription}</p>
-		<ul class="mt-2 flex flex-col gap-1 text-sm text-foreground/70">
+		<p class="text-foreground/70 text-sm">{shortDescription}</p>
+		<ul class="text-foreground/70 mt-2 flex flex-col gap-1 text-sm">
 			{specs.map((spec) => <li>• {spec}</li>)}
 		</ul>
 	</div>

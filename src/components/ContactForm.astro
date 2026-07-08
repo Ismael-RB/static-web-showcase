@@ -7,7 +7,6 @@
 // widget token against a dedicated siteverify Worker before it ever calls
 // /api/contact, so spam never reaches the SMTP send path.
 const TURNSTILE_SITEKEY = "0x4AAAAAADyHdPXG_b9yYfGx";
-const TURNSTILE_WORKER_URL = "https://turnstile-siteverify-static-web-showcase.rb-joseismael.workers.dev";
 ---
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -20,7 +19,7 @@ const TURNSTILE_WORKER_URL = "https://turnstile-siteverify-static-web-showcase.r
 			name="name"
 			type="text"
 			required
-			class="rounded-md border border-border bg-background px-3 py-2 text-sm"
+			class="border-border bg-background rounded-md border px-3 py-2 text-sm"
 		/>
 	</div>
 
@@ -31,7 +30,7 @@ const TURNSTILE_WORKER_URL = "https://turnstile-siteverify-static-web-showcase.r
 			name="email"
 			type="email"
 			required
-			class="rounded-md border border-border bg-background px-3 py-2 text-sm"
+			class="border-border bg-background rounded-md border px-3 py-2 text-sm"
 		/>
 	</div>
 
@@ -42,15 +41,14 @@ const TURNSTILE_WORKER_URL = "https://turnstile-siteverify-static-web-showcase.r
 			name="message"
 			rows="5"
 			required
-			class="rounded-md border border-border bg-background px-3 py-2 text-sm"
-		></textarea>
+			class="border-border bg-background rounded-md border px-3 py-2 text-sm"></textarea>
 	</div>
 
 	<div class="cf-turnstile" data-sitekey={TURNSTILE_SITEKEY} data-action="turnstile-spin-v1"></div>
 
 	<button
 		type="submit"
-		class="rounded-md bg-accent px-6 py-2 font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+		class="bg-accent rounded-md px-6 py-2 font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
 	>
 		Send
 	</button>
@@ -59,7 +57,8 @@ const TURNSTILE_WORKER_URL = "https://turnstile-siteverify-static-web-showcase.r
 </form>
 
 <script>
-	const TURNSTILE_WORKER_URL = "https://turnstile-siteverify-static-web-showcase.rb-joseismael.workers.dev";
+	const TURNSTILE_WORKER_URL =
+		"https://turnstile-siteverify-static-web-showcase.rb-joseismael.workers.dev";
 
 	const form = document.querySelector<HTMLFormElement>("#contact-form");
 	const status = form?.querySelector<HTMLParagraphElement>("[data-contact-status]");

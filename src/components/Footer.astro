@@ -9,11 +9,17 @@ const links = [
 ];
 ---
 
-<footer class="border-t border-border px-6 py-8 text-sm text-foreground/70">
+<footer class="border-border text-foreground/70 border-t px-6 py-8 text-sm">
 	<div class="mx-auto flex max-w-6xl flex-col items-center gap-4 sm:flex-row sm:justify-between">
 		<p>Static Web Showcase — placeholder brand text.</p>
 		<nav class="flex gap-6">
-			{links.map((link) => <a href={link.href} class="hover:text-accent">{link.label}</a>)}
+			{
+				links.map((link) => (
+					<a href={link.href} class="hover:text-accent">
+						{link.label}
+					</a>
+				))
+			}
 		</nav>
 		<p>&copy; {year} Static Web Showcase.</p>
 	</div>

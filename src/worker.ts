@@ -53,7 +53,15 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
 		return Response.json({ success: false, error: "Missing or invalid fields." }, { status: 400 });
 	}
 
-	const { SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_AUTH_TYPE, SMTP_USER, SMTP_PASS, CONTACT_TO_EMAIL } = env;
+	const {
+		SMTP_HOST,
+		SMTP_PORT,
+		SMTP_SECURE,
+		SMTP_AUTH_TYPE,
+		SMTP_USER,
+		SMTP_PASS,
+		CONTACT_TO_EMAIL,
+	} = env;
 
 	try {
 		const mailer = await WorkerMailer.connect({
